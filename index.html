@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Blog</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      .btn {
+        @apply inline-block border-1 px-3 py-1 border-gray-400 cursor-pointer hover:bg-slate-300 font-bold;
+      }
+      .active {
+        @apply bg-yellow-200;
+      }
+      .post-list-item {
+        @apply mb-4 p-3 border-1 border-gray-400 rounded-sm;
+      }
+      .page-item {
+        @apply flex justify-center items-center w-10 border-1 aspect-square text-center cursor-pointer;
+      }
+      .page-item * {
+        @apply font-bold;
+      }
+      .page-item.active {
+        @apply bg-green-700 text-white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mx-auto xl:w-[1200px]">
+      <h1 class="text-4xl font-bold text-center mb-4">Blogs</h1>
+
+      <input
+        class="search w-full px-3 py-2 border-1 border-gray-400 rounded-sm mb-4"
+        type="text"
+        name="post"
+        placeholder="Search..."
+        spellcheck="false"
+        autocomplete="on"
+      />
+
+      <div class="header-controls mb-4">
+        <div class="btn mb-4 rounded-sm">Thêm mới</div>
+        <div>
+          <div class="latest btn rounded-sm">Mới nhất</div>
+          <div class="oldest btn rounded-sm">Cũ nhất</div>
+        </div>
+      </div>
+
+      <ul class="post-list"></ul>
+
+      <ul class="pages flex">
+        <li class="page-item active"><a href="">1</a></li>
+        <li class="page-item"><a href="">2</a></li>
+        <li class="page-item"><a href="">3</a></li>
+        <li class="page-item"><a href="">4</a></li>
+        <li class="page-item"><a href="">5</a></li>
+        <li class="page-item"><a href="">6</a></li>
+        <li class="page-item"><a href="">7</a></li>
+        <li class="page-item"><a href="">8</a></li>
+        <li class="page-item"><a href="">9</a></li>
+        <li class="page-item"><a href="">10</a></li>
+      </ul>
+
+      <div class="overlay fixed inset-0 bg-gray-400 opacity-55 z-10 hidden"></div>
+      <div class="close fixed top-5 left-5 z-50 bg-blue-600 w-10 aspect-square justify-center items-center text-white rounded-full cursor-pointer hover:bg-blue-500 hidden">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <div class="modal fixed top-[300px] w-[80%] rounded-sm p-5 bg-white z-20 left-1/2 -translate-x-1/2 text-left hidden">
+        <div class="modal-title font-bold"></div>
+        <hr class="border-t-gray-300">
+        <div class="modal-body text-center pt-2 text-xl">Loading...</div>
+      </div>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
