@@ -6,7 +6,7 @@ const modal = $(".modal");
 const close = $(".close");
 const postList = $(".post-list");
 const inputEl = $(".search");
-
+let debounce;
 //Contructor Modal Dialog
 function Modal(modal, closeEl, overlay) {
   this.modal = modal;
@@ -82,6 +82,7 @@ const render = (datas) => {
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   try {
+    postList.innerHTML = "Loading..."; //Hiển thị 1 thông báo chờ cho người dùng khi data chưa gửi từ server về
     const datas = await getDatas("");
     render(datas);
   } catch (error) {
@@ -129,8 +130,10 @@ document.addEventListener("click", async (e) => {
 });
 
 //Xử lý sự kiện search
-inputEl.addEventListener("input", async (e) => {
-  try {
+inputEl.addEventListener("input", (e) => {
+  clearTimeout(debounce); // Thực hiện lấy dữ liệu sau 1 khoảng thời gian, tránh giật lag
+  debounce = setTimeout(async () => {
+    try {
     let inputValue = inputEl.value;
     const datas = await getDatas(`/search?q=${inputValue}`);
     render(datas);
@@ -141,4 +144,6 @@ inputEl.addEventListener("input", async (e) => {
     }
     postList.innerHTML = escapeHTML(error);
   }
-});
+  }, 400)
+})
+
