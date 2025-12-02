@@ -48,7 +48,11 @@ const getDatas = async (endpoint) => {
     if (!res.ok) throw new Error("No data found"); //Kiểm tra trước khi dùng res.json
     const datas = await res.json();
     if(datas.posts) {
-      if (!datas.posts.length) throw new Error("No matching posts found");
+      if (!datas.posts.length) {
+        const error = new Error("No matching posts found");
+        error.name = "Sorry";
+        throw error;
+      }
     }
     return datas;
   } catch (error) {
