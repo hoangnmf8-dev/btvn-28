@@ -138,7 +138,7 @@ inputEl.addEventListener("input", (e) => {
   clearTimeout(debounce); // Thực hiện lấy dữ liệu sau 1 khoảng thời gian, tránh giật lag
   debounce = setTimeout(async () => {
     try {
-    let inputValue = inputEl.value;
+    let inputValue = inputEl.value.trim();
     const datas = await getDatas(`/search?q=${inputValue}`);
     render(datas);
   } catch (error) {
