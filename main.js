@@ -105,14 +105,16 @@ document.addEventListener("click", async (e) => {
     if (e.target.closest(".close") || e.target.matches(".overlay")) {
       modalDialog.close();
     }
-    if (e.target.matches(".oldest")) {
+    if(!e.target.matches(".latest") || !e.target.matches(".oldest")) {
       $(".header-controls").querySelectorAll(".btn").forEach(btn => btn.classList.remove("active"));
+    }
+
+    if (e.target.matches(".oldest")) {
       $(".oldest").classList.add("active");
       const datas = await getDatas(`?sortBy=id&order=asc`);
       render(datas);
     }
     if (e.target.matches(".latest")) {
-      $(".header-controls").querySelectorAll(".btn").forEach(btn => btn.classList.remove("active"));
       $(".latest").classList.add("active");
       const datas = await getDatas(`?sortBy=id&order=desc`);
       render(datas);
