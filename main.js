@@ -7,6 +7,24 @@ const close = $(".close");
 const postList = $(".post-list");
 const inputEl = $(".search");
 let debounce;
+
+//Tính chiều rộng thanh cuộn trình duyệt
+const calcScrollBar = () => {
+  const outer = document.createElement("div");
+  outer.style.overflow = "scroll";
+  document.body.append(outer);
+
+  const inner = document.createElement("div");
+  outer.append(inner);
+
+  const outerWidth = outer.offsetWidth;
+  const innerWidth = inner.clientWidth;
+  const scrollBarWidth = outerWidth - innerWidth;
+  outer.remove();
+
+  return scrollBarWidth;
+}
+
 //Contructor Modal Dialog
 function Modal(modal, closeEl, overlay) {
   this.modal = modal;
@@ -17,6 +35,8 @@ function Modal(modal, closeEl, overlay) {
     this.modal.classList.remove("hidden");
     this.closeEl.classList.replace("hidden", "flex");
     this.overlay.classList.remove("hidden");
+    document.body.style.paddingRight = `${calcScrollBar()}px`;
+    document.body.classList.add("overflow-hidden");
   };
   this.close = function () {
     this.modal.classList.add("hidden");
@@ -25,6 +45,8 @@ function Modal(modal, closeEl, overlay) {
     $(".modal-title").innerHTML = "";
     $(".modal-body").innerHTML = "Loading...";
     $(".modal-body").classList.replace("text-left", "text-center");
+    document.body.style.paddingRight = `0px`;
+    document.body.classList.remove("overflow-hidden");
   };
   this.displayContent = function (title, body) {
     $(".modal-title").innerHTML = title;
@@ -42,6 +64,7 @@ const escapeHTML = (value) => {
   return div.innerHTML;
 };
 
+//Xử lý lấy dữ liệu chung
 const getDatas = async (endpoint) => {
   try {
     const res = await fetch(`${BASE_URL}${endpoint}`);
