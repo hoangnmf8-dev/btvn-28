@@ -1,4 +1,4 @@
-const BASE_URL = "https://dummyjson.com/posts";
+const BASE_URL = "https://dummyjson.com/posts"; // Đề bài chỉ yêu cầu lấy bài viết nên sử dụng luôn /posts
 
 const $ = document.querySelector.bind(document);
 const overlay = $(".overlay");
@@ -133,7 +133,7 @@ document.addEventListener("click", async (e) => {
     if (e.target.closest(".close") || e.target.matches(".overlay")) {
       modalDialog.close();
     }
-    if(!e.target.matches(".latest") || !e.target.matches(".oldest")) {
+    if(e.target.closest(".header-controls")) {
       $(".header-controls").querySelectorAll(".btn").forEach(btn => btn.classList.remove("active"));
     }
 
@@ -158,6 +158,7 @@ document.addEventListener("click", async (e) => {
 
 //Xử lý sự kiện search
 inputEl.addEventListener("input", (e) => {
+  $(".header-controls").querySelectorAll(".btn").forEach(btn => btn.classList.remove("active"));
   clearTimeout(debounce); // Thực hiện lấy dữ liệu sau 1 khoảng thời gian, tránh giật lag
   debounce = setTimeout(async () => {
     try {
